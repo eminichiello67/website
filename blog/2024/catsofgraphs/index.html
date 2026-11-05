@@ -1,0 +1,408 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Category of Simple Graphs | Emilio Minichiello </title> <meta name="author" content="Emilio Minichiello"> <meta name="description" content="We play around with some simple graphs to get a feel for their category."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="www.emiliominichiello.com/blog/2024/catsofgraphs/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Emilio Minichiello </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/research/">research </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/talks/">talks </a> </li> <li class="nav-item "> <a class="nav-link" href="/compassion/">compassion </a> </li> <li class="nav-item "> <a class="nav-link" href="/conferences/">conferences </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Category of Simple Graphs</h1> <p class="post-meta"> Created on July 11, 2024 </p> <p class="post-tags"> <a href="/blog/2024"> <i class="fa-solid fa-calendar fa-sm"></i> 2024 </a>   ·   <a href="/blog/tag/graphs"> <i class="fa-solid fa-hashtag fa-sm"></i> graphs,</a>   <a href="/blog/tag/category-theory"> <i class="fa-solid fa-hashtag fa-sm"></i> category-theory</a>   ·   <a href="/blog/category/math"> <i class="fa-solid fa-tag fa-sm"></i> math</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>I’ve been trying to learn more about algorithms and computer science lately, and so wanted to nail down how to do some simple categorical constructions with graphs.</p> <p>Interestingly, subtleties appear immediately. The biggest one is: what do you mean by a graph?</p> <p>There’s a ton of different notions of graphs, each with their own uses and conventions. For right now, I’m mainly interested in undirected graphs with at most one edge between two vertices and no loops. These kinds of graphs are often called <strong>simple graphs</strong>, and they seem (at least upon my beginner knowledge) to be slightly more central to algorithms and computer science than directed graphs, or graphs with multiple edges (also called multigraphs).</p> <p>Now there’s quite a bit written about this zoo of kinds of graphs, such as the thesis <a href="https://scholarworks.umt.edu/cgi/viewcontent.cgi?referer=&amp;httpsredir=1&amp;article=1986&amp;context=etd" rel="external nofollow noopener" target="_blank">The Categories of Graphs</a><sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> and this <a href="https://ncatlab.org/nlab/show/graph" rel="external nofollow noopener" target="_blank">nlab page</a>, so I won’t talk too much about it. Here’s a table summarizing the graphs in the nlab article.</p> <table> <thead> <tr> <th>Graph</th> <th>directed</th> <th>multiple edges</th> <th>loops</th> </tr> </thead> <tbody> <tr> <td>simple graph</td> <td>No</td> <td>No</td> <td>No</td> </tr> <tr> <td>multigraph</td> <td>No</td> <td>Yes</td> <td>No</td> </tr> <tr> <td>loop graph</td> <td>No</td> <td>No</td> <td>$\leq 1$</td> </tr> <tr> <td>pseudograph</td> <td>No</td> <td>Yes</td> <td>Yes</td> </tr> <tr> <td>directed graph</td> <td>Yes</td> <td>No</td> <td>No</td> </tr> <tr> <td>directed multigraph</td> <td>Yes</td> <td>Yes</td> <td>No</td> </tr> <tr> <td>directed loop graph</td> <td>Yes</td> <td>No</td> <td>$\leq 1$</td> </tr> <tr> <td>directed pseudograph</td> <td>Yes</td> <td>Yes</td> <td>Yes</td> </tr> </tbody> </table> <p><strong>Caveat:</strong> Pseudographs can have <em>multiple loops</em> on a vertex. We assume (directed) loop graphs can have at most <em>one</em> loop on a vertex.</p> <p>Category theorists are probably most used to working with directed pseudographs, since categories are directed pseudographs with extra structure (identity loops and composition).</p> <p>Right off the bat, let us note that the category \(\mathsf{DPGrph}\) of directed pseudographs is super nice. Indeed, if we let \((* \rightrightarrows *)\) denote the category with two objects \(E\) and \(V\) and two non-identity morphisms \(s, t : E \to V\), then a directed pseudograph is the same thing as a functor \(G : (* \rightrightarrows *) \to \mathbf{Set}\). Thus \(\mathsf{DPGrph} = \mathbf{Set}^{* \rightrightarrows *}\) is a Grothendieck topos, in particular it is a copresheaf category, really the nicest kind of category around. Doing any sort of construction in this category should be dumb simple, as (co)limits in copresheaf categories are computed objectwise<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p> <p>So let’s get into the math. By a simple graph \(G\), what I mean is a set \(V(G)\) of <strong>vertices</strong> equipped with a binary, irreflexive, symmetric relation \((E(G) \subseteq V(G)^2)\), called the <strong>edge relation</strong>. So if \(u,v \in V\), then \((u,v) \in E(G)\), which we will also write as \(uv\) or \(u \sim v\) if there is an edge connecting \(u\) and \(v\).</p> <p>A map \(f: G \to G'\) of simple graphs is a function \(V(f): V(G) \to V(G')\) such that if \(uv \in E(G)\), then \(f(u)f(v) \in E(G')\).</p> <p>But wait…is this actually what we want? There’s a small, kind of annoying thing we notice right away from this definition. With the above definition, the two inclusions \(* \to [*-*]\) of a simple graph with one vertex and no edges into the simple graph with two vertices and one edge are morphisms, which is good. However, there is <strong>no</strong> morphism in the other direction \([*-*] \to *\). This is because if we call the first graph \(G\) with vertices \(u\) and \(v\) and the second graph \(G'\) with single vertex \(w\), then \(uv \in E(G)\), but since \(E(G')\) is irreflexive, \(ww \notin E(G')\). Thus the function sending \(u\) and \(v\) to \(w\) does not define a morphism of simple graphs.</p> <p>So basically, with the most naive definition above, morphisms of simple graphs cannot collapse edges. Now this might be reasonable for your particular use case, but I don’t know, I’d like to consider some cases where you can collapse edges, that seems more natural and fun to me<sup id="fnref:4"><a href="#fn:4" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>.</p> <p>Alright, so let’s redo this. Lets redefine a simple graph \(G\) to consist of a set \(V(G)\) of vertices and a binary, <strong>reflexive</strong>, symmetric relation \((E(G) \subseteq V(G)^2)\). So technically, these are different mathematical objects. You might visualize them as undirected graphs with unique edges and where every vertex has exactly one loop. But this is kinda silly. I can’t map these loops to anything other than the unique loop where I send the underlying vertex to, so it might as well be like they aren’t there. It makes more sense to just identify these with the intuitive notion of a simple graph: undirected, unique edges, no loops, and just allow morphisms to collapse edges.</p> <p>Let \(\mathsf{Grph}\) denote the category whose objects are simple graphs and whose morphisms are allowed to collapse edges. In other words, the category of binary, reflexive, symmetric relations. Let \(\mathsf{rGrph}\) denote the category of simple graphs whose morphisms are <strong>not</strong> allowed to collapse edges. We can call this the category of <strong>rigid</strong> simple graphs. Lets call the objects of \(\mathsf{Grph}\) just <em>graphs</em> from now on.</p> <p>Okay, now lets explore \(\mathsf{Grph}\) some more. I can visualize its objects easily, its got a concrete mathematical description, and its got some nice morphisms. So let’s see how to compute some limits and colimits here.</p> <p>Now if you check the <a href="https://ncatlab.org/nlab/show/category+of+simple+graphs" rel="external nofollow noopener" target="_blank">nlab page for simple graphs</a>, you’ll see a fancy result identifying \(\mathsf{Grph}\) as a Grothendieck quasitopos, which is a very nice category. For this post, let’s just do things by hand to get a feel for this category. But from this abstract result, we know that \(\mathsf{Grph}\) has all limits, colimits and is cartesian closed.</p> <p>Note that making even small changes to this definition can have pretty drastic consequences categorically. For example, if we kept the definition before, where we weren’t allowed to smush edges, then we end up with a category that doesn’t even have all pushouts! See <a href="https://arxiv.org/abs/2104.01841" rel="external nofollow noopener" target="_blank">Spined Categories by Bumpus and Kocsis Page 7</a>.</p> <p>Also note that Wikipedia considers for its <a href="https://en.wikipedia.org/wiki/Graph_homomorphism" rel="external nofollow noopener" target="_blank">definition of graph homomorphism</a> to be loop graphs with maps between them that aren’t allowed to collapse loops or edges.</p> <p>First off, lets notice there is a nice functor \(V : \mathsf{Grph} \to \mathbf{Set}\) that sends a graph to its set of vertices. If I have a map of graphs, then I get a map of their corresponding sets of vertices. This functor has a left adjoint \(\text{Disc} : \mathbf{Set} \to \mathsf{Grph}\) that sends a set \(S\) to the graph \(\text{Disc}(S)\), which has \(V(\text{Disc}(S)) = S\) and \(E(\text{Disc}(S)) = \varnothing\)<sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>. In other words \(\text{Disc}(S)\) is the <strong>discrete graph</strong> on the set \(S\). Now \(V\) also has a right adjoint \(\text{CoDisc}: \mathbf{Set} \to \mathsf{Grph}\) which sends a set \(S\) to the graph \(\text{CoDisc}(S)\), whose set of vertices is \(S\), and where every pair of vertices is connected by an edge.</p> <p>Okay, so \(V\) has left and right adjoints, so that means it preserves whatever (co)limits exist in \(\mathsf{Grph}\), and we know what (co)limits in \(\mathbf{Set}\) look like. So if we take a (co)imit \(\lim_i G_i\) of graphs, we know that \(V(\lim_i G_i) \cong \lim_i V(G_i)\). So that helps us guess what (co)limits should be in \(\mathsf{Grph}\).</p> <p>Given graphs \(G\) and \(H\), let \(G \times H\) denote the graph with \(V(G \times H) = V(G) \times V(H)\) and \(E(G \times H) \subseteq V(G \times H)^2\) is the relation where \((g,h) \sim_{G \times H} (g',h')\) if \(g \sim_G g'\) and \(h \sim_H h'\). There are maps \(\pi_G : G \times H \to G\) in \(\mathsf{Grph}\), with \(\pi_G(g,h) = g\) and \(\pi_H : G \times H \to H\), with \(\pi_H(g,h) = h\).</p> <p><strong>Lemma</strong>: \(G \times H\) is the product of \(G\) and \(H\) in the category \(\mathsf{Grph}\).</p> <p><strong>Proof</strong>: Suppose that we have maps \(g : Q \to G\) and \(h: Q \to H\). We want to define a map \(k : Q \to G \times H\) such that \(\pi_G k = g\) and \(\pi_H k = h\). Let \(k(q) = (g(q), h(q))\). Now this is a map of graphs, because if \(q \sim q'\), then \(g(q) \sim g(q')\) and \(h(q) \sim h(q')\) since \(g\) and \(h\) are maps of graphs, and so \(k(q) = (g(q), h(q)) \sim (g(q'),h(q')) = k(q')\). It is easy to check that this is the unique map such that \(\pi_G k = g\) and \(\pi_H k = h\), and hence is the categorical product. \(\square\)</p> <p>Now let us try coproducts.</p> <p>Given graphs \(G\) and \(H\), let \(G + H\) denote the graph with \(V(G + H) = V(G) + V(H)\) and \(E(G + H)\) is the relation where \(v \sim_{G + H} v'\) if \(v, v' \in G\) and \(v \sim_G v'\) or \(v,v' \in H\) and \(v \sim_H v'\). There are inclusion maps \(i_G : G \to G + H\) and \(i_H : H \to G + H\).</p> <p><strong>Lemma</strong>: \(G + H\) is the coproduct of \(G\) and \(H\) in the category \(\mathsf{Grph}\).</p> <p>The proof is the same idea as for products.</p> <p>I’ll also leave it to you to check that \(\varnothing\), the graph with no vertices, is the intial object in \(\mathbf{Grph}\) and \(*\), the graph with one vertex, is the terminal object in \(\mathbf{Grph}\).</p> <p>Now for pushouts. Given maps of graphs \(f: A \to B\) and \(g: A \to C\), let \(B+_A C\) denote the graph with \(V(B +_A C) = V(B) +_{V(A)} V(C)\), (i.e. \(V(B +_A C)\) is the set \(V(B) + V(C)\) quotiented by the smallest equivalence relation containing the relation \(\simeq\) where \(v \simeq w\) if there exists an \(a \in V(A)\) such that \(v = f(a)\) and \(w = g(a)\)) and let \(E(B +_A C)\) be defined as follows. If \(x,y \in V(B +_A C)\), then \(x \sim_{B +_A C} y\) if there exists \(v,v' \in V(B)\) with \(v \sim_B v'\), \([v] = x\) and \([v'] = y\) or \(w,w' \in V(C)\) with \(w \sim_C w'\), \([w] = x\) and \([w'] = y\). In other words, there is an edge between \([v]\) and \([w]\) if there is some representative edge in \(B\) or \(C\).</p> <p>There are maps \(i_B : B \to B+_A C\) and \(i_C : C \to B +_A C\) given by inclusion.</p> \[\begin{CD} A @&gt;g&gt;&gt; C\\ @VfVV @Vi_CVV \\ B @&gt;i_B&gt;&gt; B+_A C \end{CD}\] <p><strong>Lemma</strong>: \(B+_A C\) is the pushout of \(f\) and \(g\) in \(\mathsf{Grph}\).</p> <p><strong>Proof</strong>: Suppose that we have maps \(n : B \to Q\) and \(m : C \to Q\) such that \(nf = mg\). We want to define a map \(k : B+_A C \to Q\) such that \(k i_B = n\) and \(k i_C = m\). On vertices, define it as you would in \(\mathsf{Set}\), i.e. send \(x \mapsto n(x)\) if \(x = [b]\) for some \(b \in B\) and \(x \mapsto m(x)\) if \(x = [c]\) for some \(c \in C\). If \([b] = [c]\), then there exists an \(a\in A\) with \(f(a) = b\) and \(g(a) = c\), so \(n(b) = nf(a) = mg(a) = m(c)\). So our map \(k\) is well defined. If \([v] \sim_{B+_A C} [w]\), then \(k[v] \sim_Q k[w]\), because in order for \([v] \sim [w]\), there has to be some representative of the edge in \(B\) or \(C\), and \(n\) and \(m\) preserve the edges of \(B\) and \(C\) respectively. Its now not hard to see that \(k\) satisfies the necessary properties for \(B +_A C\) to be a pushout.</p> <p>Note that this is a generalization of the well-known <a href="https://en.wikipedia.org/wiki/Clique-sum" rel="external nofollow noopener" target="_blank">clique sum construction</a> in graph theory.</p> <p>Finally, let’s look at pullbacks.</p> <p>Given maps \(f : B \to A\) and \(g: C \to A\) of graphs, let \(B \times_A C\) denote the graph with \(V(B \times_A C) = V(B) \times_{V(A)} V(C)\) and with \(E(B \times_A C)\) defined as follows. We have \((b,c) \sim_{B \times_A C} (b',c')\) if \(b \sim_B b'\) and \(c \sim_C c'\).</p> <p><strong>Lemma</strong>: \(B \times_A C\) is the pullback of \(f\) and \(g\) in \(\mathsf{Grph}\).</p> <p><strong>Proof</strong>: Suppose we have maps \(n : Q \to B\) and \(m : Q \to C\) such that \(fn = gm\). We want to define a map \(k : Q \to B\times_A C\) such that \(\pi_B k = n\) and \(\pi_C k = m\). Well define \(k(q) = (n(q), m(q))\). Its now easy to check that since \(n\) and \(m\) preserve edges that \(k\) will as well, and it’s clearly unique and satisfies the required conditions.</p> <p>So the basic categorical constructions for \(\mathsf{Grph}\) are pretty straightforward and nice. It would be interesting to compare this to all these other kinds of categories of graphs!</p> <hr> <p>Fun aside that I haven’t really thought through too much: If we consider the category \(\mathsf{orGrph}\), whose objects are simple graphs with an ordering on their vertices, then we get a cosimplicial object \(K^\bullet : \mathsf{\Delta} \to \mathsf{orGrph}\) given by the cliques and inclusion or collapse maps between them. Anytime we have such a cosimplicial object in a cocomplete category, we get an adjunction \(\text{Re}: \mathsf{sSet} \rightleftarrows \mathsf{orGrph} : \text{Sing}\). In this case, if \(G\) is a graph, then \(\text{Sing}(G)\) is a simplicial set gotten by mapping cliques into \(G\). The homotopy type of \(\text{Sing}(G)\) is thus the same as the <a href="https://en.wikipedia.org/wiki/Clique_complex" rel="external nofollow noopener" target="_blank">clique complex</a> of \(G\). Neat! Then \(\text{Re}\) is like gluing cliques together according to a simplicial set “recipe.”</p> <div class="footnotes" role="doc-endnotes"> <ol> <li id="fn:1"> <p>In this reference, all of these examples of graphs are derived from a more general structure, which they call a <em>conceptual graph</em>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:2"> <p>See Riehl’s <a href="https://math.jhu.edu/~eriehl/context.pdf" rel="external nofollow noopener" target="_blank">Category Theory in Context</a> Proposition 3.3.9 for a more precise description of what I mean. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:4"> <p>However we do lose something really important when we use these morphisms and not the more strict ones. If we let \(K^n\) denote the \(n\)-clique, i.e. the complete graph on \(n\) vertices, then with the strict morphisms that don’t collapse edges, maps of graphs \(G \to K^n\) are equivalent to \(n\)-colorings of \(G\). If we allow morphisms to collapse edges, then there are always such maps, we can just collapse everything to a single vertex for instance, so we lose the correspondence. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:3"> <p>Technically it should be \(E(F(S)) = \Delta_{S}\), the diagonal, i.e. the set \(\Delta_S = \{ (s, s) \in S \times S \}\) since we are asking for the edge relation to be reflexive, but going forward, let’s just ignore these “ghost edges.” <a href="#fnref:3" class="reversefootnote" role="doc-backlink">↩</a></p> </li> </ol> </div> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Emilio Minichiello. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-research",
+          title: "research",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/research/";
+          },
+        },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-talks",
+          title: "talks",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/talks/";
+          },
+        },{id: "nav-compassion",
+          title: "compassion",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/compassion/";
+          },
+        },{id: "nav-conferences",
+          title: "conferences",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/conferences/";
+          },
+        },{id: "nav-teaching",
+          title: "teaching",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/teaching/";
+          },
+        },{id: "post-some-updates",
+        
+          title: "Some Updates",
+        
+        description: "updates on life",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/lifeupdate/";
+          
+        },
+      },{id: "post-papers-on-graph-homotopy-theory",
+        
+          title: "Papers on Graph Homotopy Theory",
+        
+        description: "A repository of papers",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/graphhomotopytheory/";
+          
+        },
+      },{id: "post-duplation-mediation-multiplication",
+        
+          title: "Duplation-Mediation Multiplication",
+        
+        description: "Let&#39;s discuss an alternative algorithm for multiplication.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/duplation-multiplication/";
+          
+        },
+      },{id: "post-pushouts-along-monomorphisms",
+        
+          title: "Pushouts along monomorphisms.",
+        
+        description: "A quick post to discuss adhesive categories.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/adhesivecategories/";
+          
+        },
+      },{id: "post-the-category-of-simple-graphs-pt-2",
+        
+          title: "The Category of Simple Graphs, Pt. 2",
+        
+        description: "We play around with some simple graphs to get a feel for their category.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/catsographs2/";
+          
+        },
+      },{id: "post-the-category-of-simple-graphs",
+        
+          title: "The Category of Simple Graphs",
+        
+        description: "We play around with some simple graphs to get a feel for their category.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/catsofgraphs/";
+          
+        },
+      },{id: "post-google-gemini-updates-flash-1-5-gemma-2-and-project-astra",
+        
+          title: 'Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/", "_blank");
+          
+        },
+      },{id: "post-diffeological-spaces-part-3",
+        
+          title: "Diffeological Spaces, Part 3",
+        
+        description: "The definition of diffeological spaces",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/diffeological_spaces_3/";
+          
+        },
+      },{id: "post-diffeological-spaces-part-2",
+        
+          title: "Diffeological Spaces, Part 2",
+        
+        description: "Some history of diffeological spaces.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/diffeological_spaces_2/";
+          
+        },
+      },{id: "post-diffeological-spaces-part-1",
+        
+          title: "Diffeological Spaces, Part 1",
+        
+        description: "The inaugural post! What is a diffeological space?",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/diffeological_spaces_1-copy/";
+          
+        },
+      },{id: "post-displaying-external-posts-on-your-al-folio-blog",
+        
+          title: 'Displaying External Posts on Your al-folio Blog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2", "_blank");
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather/";
+            },},{id: "news-categorical-models-for-path-spaces-https-www-sciencedirect-com-science-article-abs-pii-s0001870823000415-is-accepted-into-advances-in-mathematics-https-www-sciencedirect-com-journal-advances-in-mathematics",
+          title: '[Categorical Models for Path Spaces](https://www.sciencedirect.com/science/article/abs/pii/S0001870823000415) is accepted into [Advances in Mathematics](https://www.sciencedirect.com/journal/advances-in-mathematics)!',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-a-mathematical-model-of-package-management-systems-from-general-event-structures-to-antimatroids-https-arxiv-org-abs-2302-05417-jww-gershom-bazerman-https-gbaz-github-io-and-raymond-puzio-https-dblp-org-pid-44-5695-html",
+          title: 'Posted new preprint to the arxiv – [A Mathematical Model of Package Management...',
+          description: "",
+          section: "News",},{id: "news-updated-preprint-diffeological-principal-bundles-and-principal-infinity-bundles-https-arxiv-org-abs-2202-11023-stylistic-rewrite-and-added-some-new-results-and-sections",
+          title: 'Updated preprint – [Diffeological Principal Bundles and Principal Infinity Bundles](https://arxiv.org/abs/2202.11023), stylistic rewrite and...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-about-diffeological-spaces-and-higher-stacks-at-the-texas-tech-topology-and-geometry-seminar-https-dmitripavlov-org-geometry",
+          title: 'Gave a talk about diffeological spaces and higher stacks at the [Texas Tech...',
+          description: "",
+          section: "News",},{id: "news-visited-coauthor-manuel-rivera-https-riveramanuel-com-at-purdue-university-talked-in-his-class-on-category-theory-and-simplicial-methods-about-convenient-categories-of-topological-spaces-gave-a-talk-on-diffeological-spaces-at-topolodays-the-purdue-university-topology-student-seminar",
+          title: 'Visited coauthor [Manuel Rivera](https://riveramanuel.com/) at Purdue University. Talked in his class on Category...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-queensborough-community-college-math-seminar-about-a-mathematical-model-of-package-management-systems-https-arxiv-org-abs-2302-05417",
+          title: 'Gave a talk at Queensborough Community College Math Seminar about a [Mathematical Model...',
+          description: "",
+          section: "News",},{id: "news-gave-an-talk-at-the-topology-geometry-and-physics-seminar-https-www-zeinalian-com-workshop-about-diffeological-spaces-and-the-obstruction-to-the-cech-derham-isomorphism-in-diffeology",
+          title: 'Gave an talk at the [Topology, Geometry and Physics Seminar](https://www.zeinalian.com/workshop) about diffeological spaces...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-nyc-category-theory-seminar-http-www-sci-brooklyn-cuny-edu-noson-seminar-index-html-can-find-the-video-recording-here-https-www-youtube-com-watch-v-tbygkbd2dhc-amp-t-43s-amp-ab-channel-thenewyorkcitycategorytheoryseminar",
+          title: 'Gave a talk at the [NYC Category Theory Seminar](http://www.sci.brooklyn.cuny.edu/~noson/Seminar/index.html). Can find the video...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-the-diffeological-cech-de-rham-obstruction-https-arxiv-org-abs-2401-09400",
+          title: 'Posted new preprint to the arxiv – [The Diffeological Cech-de Rham Obstruction](https://arxiv.org/abs/2401.09400)',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-presenting-profunctors-https-arxiv-org-abs-2404-01406-jww-gabriel-goren-roig-https-gabrielgorenroig-github-io-and-joshua-meyers",
+          title: 'Posted new preprint to the arxiv – [Presenting Profunctors](https://arxiv.org/abs/2404.01406), jww [Gabriel Goren Roig](https://gabrielgorenroig.github.io/)...',
+          description: "",
+          section: "News",},{id: "news-diffeological-principal-bundles-and-principal-infinity-bundles-https-link-springer-com-article-10-1007-s40062-024-00347-4-is-accepted-into-journal-of-homotopy-and-related-structures-https-link-springer-com-journal-40062",
+          title: '[Diffeological Principal Bundles and Principal Infinity Bundles](https://link.springer.com/article/10.1007/s40062-024-00347-4) is accepted into [Journal of Homotopy...',
+          description: "",
+          section: "News",},{id: "news-defended-my-phd-thesis-higher-diffeology-theory-consisting-of-the-papers-diffeological-principal-bundles-https-arxiv-org-abs-2202-11023-and-the-diffeological-čech-de-rham-obstruction-https-arxiv-org-abs-2401-09400",
+          title: 'Defended my PhD thesis **Higher Diffeology Theory**, consisting of the papers [Diffeological Principal...',
+          description: "",
+          section: "News",},{id: "news-the-paper-presenting-profunctors-https-arxiv-org-abs-2404-01406-has-been-accepted-to-act-2024-https-oxford24-github-io-act-cfp-html",
+          title: 'The paper [Presenting Profunctors](https://arxiv.org/abs/2404.01406) has been accepted to [ACT 2024](https://oxford24.github.io/act_cfp.html)!',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-nyc-category-theory-seminar-http-www-sci-brooklyn-cuny-edu-noson-seminar-index-html-on-presenting-profunctors-can-find-the-video-recording-here-https-www-youtube-com-watch-v-0bquvu-kwra-amp-t-3203s",
+          title: 'Gave a talk at the [NYC Category Theory Seminar](http://www.sci.brooklyn.cuny.edu/~noson/Seminar/index.html) on Presenting Profunctors. Can...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-act-2024-https-oxford24-github-io-act-cfp-html-on-proqueries-and-praqueries-see-my-talks-link-pages-talks-md-page-for-slides-and-video",
+          title: 'Gave a talk at [ACT 2024](https://oxford24.github.io/act_cfp.html) on Proqueries and Praqueries. See my [talks]({%...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-quot-introduction-to-diffeology-quot-at-the-zulip-online-category-theory-seminar-https-categorytheory-zulipchat-com-narrow-stream-437647-event-3a-online-ct-seminar-see-my-talks-link-pages-talks-md-page-for-slides-and-video",
+          title: 'Gave a talk &amp;quot;Introduction to Diffeology&amp;quot; at the [Zulip Online Category Theory Seminar](https://categorytheory.zulipchat.com/#narrow/stream/437647-event.3A-Online-CT-seminar)....',
+          description: "",
+          section: "News",},{id: "news-i-39-ve-accepted-a-tenure-track-assistant-professor-position-in-the-mathematics-department-https-www-citytech-cuny-edu-mathematics-at-cuny-citytech-https-www-citytech-cuny-edu",
+          title: 'I&amp;#39;ve accepted a tenure-track Assistant Professor position in the [Mathematics department](https://www.citytech.cuny.edu/mathematics/#) at [CUNY...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-for-the-cuny-citytech-math-department-on-categorical-database-theory",
+          title: 'Gave a talk for the CUNY CityTech math department on categorical database theory....',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-on-the-diffeological-cech-de-rham-obstruction-at-the-monthly-global-diffeology-seminar-see-the-talks-page-for-more-information-and-slides",
+          title: 'Gave a talk on The Diffeological Cech-de Rham Obstruction at the Monthly Global...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-new-york-city-category-theory-seminar-titled-quot-decision-problems-on-graphs-with-sheaves-quot-see-the-talks-section-above-for-a-video-recording",
+          title: 'Gave a talk at the New York City Category Theory Seminar titled &amp;quot;Decision...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-coverages-and-grothendieck-toposes-https-arxiv-org-abs-2503-20664-it-is-a-set-of-notes-about-grothendieck-topos-theory-using-coverages",
+          title: 'Posted new preprint to the arXiv - [Coverages and Grothendieck Toposes](https://arxiv.org/abs/2503.20664). It is...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-structured-decompositions-structural-and-algorithmic-compositionality-https-arxiv-org-abs-2207-06091-joint-work-with-ben-bumpus-https-bmbumpus-com-about-me-zoltan-kocsis-https-existence-property-and-jade-master-https-sites-google-com-view-jadeedenstarmaster-home",
+          title: 'Posted new preprint to the arxiv – [Structured Decompositions: Structural and Algorithmic Compositionality...',
+          description: "",
+          section: "News",},{id: "news-i-39-ve-been-awarded-a-1-year-psc-cuny-grant-https-www-rfcuny-org-rfwebsite-quot-hypersheaves-in-differential-geometry-quot",
+          title: 'I&amp;#39;ve been awarded a 1-year [PSC CUNY Grant](https://www.rfcuny.org/rfwebsite/) &amp;quot;Hypersheaves in Differential Geometry.&amp;quot;',
+          description: "",
+          section: "News",},{id: "news-i-gave-several-talks-this-semester-including-three-lectures-on-my-notes-quot-coverages-and-grothendieck-toposes-quot-check-out-the-talks-page-above",
+          title: 'I gave several talks this semester, including three lectures on my notes &amp;quot;Coverages...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-thomason-type-model-structures-on-simplicial-complexes-and-graphs-https-arxiv-org-abs-2508-08195",
+          title: 'Posted new preprint to the arxiv – [Thomason-Type Model Structures on Simplicial Complexes...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-nyc-category-theory-seminar-http-www-sci-brooklyn-cuny-edu-noson-seminar-index-html-on-my-paper-thomason-type-model-structures-on-simplicial-complexes-and-graphs-https-arxiv-org-abs-2508-08195-see-the-talks-page-above",
+          title: 'Gave a talk at the [NYC Category Theory Seminar](http://www.sci.brooklyn.cuny.edu/~noson/Seminar/index.html) on my paper [Thomason-Type...',
+          description: "",
+          section: "News",},{id: "news-some-nice-news-my-paper-thomason-type-model-structures-on-simplicial-complexes-and-graphs-https-link-springer-com-article-10-1007-s10485-026-09850-6-has-been-published-by-applied-categorical-structures-at-the-same-time-my-new-paper-hypercovers-in-differential-geometry-https-arxiv-org-abs-2602-11971-has-hit-the-arxiv",
+          title: 'Some nice news, my paper [Thomason-Type Model Structures on Simplicial Complexes and Graphs](https://link.springer.com/article/10.1007/s10485-026-09850-6)...',
+          description: "",
+          section: "News",},{id: "news-gave-talks-at-iona-college-and-the-ny-combinatorics-day-2026-see-the-talks-section-for-the-slides",
+          title: 'Gave talks at Iona College and the NY Combinatorics Day 2026. See the...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-a-parameterized-algorithm-for-testing-whether-the-limit-of-a-diagram-is-empty-https-arxiv-org-abs-2605-24240-to-the-arxiv",
+          title: 'Posted new preprint [A Parameterized Algorithm for Testing whether the Limit of a...',
+          description: "",
+          section: "News",},{id: "news-i-gave-three-talks-this-semester-in-switzerland-albany-and-in-nyc-check-out-the-talks-page",
+          title: 'I gave three talks this semester in Switzerland, Albany and in NYC. Check...',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/example_pdf.pdf", "_blank");
+        },
+      },{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%79%6F%75@%65%78%61%6D%70%6C%65.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-inspire',
+        title: 'Inspire HEP',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://inspirehep.net/authors/1010907", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=qc6CJjYAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.alberteinstein.com/", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

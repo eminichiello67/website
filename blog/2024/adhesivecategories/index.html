@@ -1,0 +1,408 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Pushouts along monomorphisms. | Emilio Minichiello </title> <meta name="author" content="Emilio Minichiello"> <meta name="description" content="A quick post to discuss adhesive categories."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="www.emiliominichiello.com/blog/2024/adhesivecategories/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Emilio Minichiello </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/research/">research </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/talks/">talks </a> </li> <li class="nav-item "> <a class="nav-link" href="/compassion/">compassion </a> </li> <li class="nav-item "> <a class="nav-link" href="/conferences/">conferences </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Pushouts along monomorphisms.</h1> <p class="post-meta"> Created on November 14, 2024 </p> <p class="post-tags"> <a href="/blog/2024"> <i class="fa-solid fa-calendar fa-sm"></i> 2024 </a>   ·   <a href="/blog/tag/graphs"> <i class="fa-solid fa-hashtag fa-sm"></i> graphs,</a>   <a href="/blog/tag/category-theory"> <i class="fa-solid fa-hashtag fa-sm"></i> category-theory</a>   ·   <a href="/blog/category/math"> <i class="fa-solid fa-tag fa-sm"></i> math</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>Continuing on with the previous blog posts about categories of simple graphs, let us talk about a special class of categories, called <strong>adhesive categories</strong> and show that \(\mathsf{rGrph}\) belongs to this class.</p> <p>Let’s start with the definition: A category \(\mathcal{C}\) is <strong>adhesive</strong> if</p> <ul> <li>it has pullbacks, and</li> <li>pushouts along monomorphisms<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> exist and are Van Kampen.</li> </ul> <p>Okay, so this might seem a little weird at first glance. What exactly does it mean for pushouts along monomorphisms to be Van Kampen? What does that have to do with graphs? All in due time, be patient!</p> <p>First, let’s discuss Van Kampen colimits. This is a topic that really deserves a blog post of its own, so I’ll only give some basic details. We say a diagram \(d: I \to \mathcal{C}\) has a <strong>Van Kampen</strong> colimit if the colimit of \(d\) exists and there is an equivalence \(\mathcal{C}_{/\text{colim}_i \, d(i)} \simeq \lim_i \mathcal{C}_{/d(i)},\) where on the right hand side we have a pseudolimit.</p> <p>The big idea here is: a diagram’s colimit is Van Kampen if you can “get the pieces back after you glued them together.”</p> <p>Both the equivalence above and that vague statement might leave you feeling angry, and I understand. Here’s a much more concrete way to think about this in the case when the diagram is a pushout.</p> <p>So suppose we have a diagram \(Y_0 \xleftarrow{g_0} Y_1 \xrightarrow{g_1} Y_2\) and let \(Y = Y_0 +_{Y_1} Y_2\) be its colimit, i.e. pushout. Suppose we have a map \(\alpha : X \to Y\), and we take pullbacks </p> <iframe class="quiver-embed" src="https://q.uiver.app/#q=WzAsNixbMSwxLCJZIl0sWzEsMCwiWCJdLFswLDEsIllfMCJdLFsyLDEsIllfMiJdLFswLDAsIlhfMCJdLFsyLDAsIlhfMiJdLFsxLDAsIlxcYWxwaGEiLDJdLFsyLDAsIlxcbGFtYmRhXzAiLDJdLFszLDAsIlxcbGFtYmRhXzIiXSxbNCwyLCJcXGFscGhhXzAiLDJdLFs0LDEsIlxcc2lnbWFfMCJdLFs1LDMsIlxcYWxwaGFfMiJdLFs1LDEsIlxcc2lnbWFfMiIsMl0sWzQsMCwiIiwwLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV0sWzUsMCwiIiwwLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d&amp;embed" width="432" height="304" style="border-radius: 8px; border: none;"></iframe> <p>This is like “breaking X into pieces.” We then take two more pullbacks to obtain a big commutative cube </p> <iframe class="quiver-embed" src="https://q.uiver.app/#q=WzAsOCxbMiwzLCJZIl0sWzIsMSwiWCJdLFswLDMsIllfMCJdLFszLDIsIllfMiJdLFswLDEsIlhfMCJdLFszLDAsIlhfMiJdLFsxLDAsIlhfMSJdLFsxLDIsIllfMSJdLFsxLDAsIlxcYWxwaGEiLDEseyJsYWJlbF9wb3NpdGlvbiI6MzB9XSxbMiwwLCJcXGxhbWJkYV8wIiwxXSxbMywwLCJcXGxhbWJkYV8yIiwxXSxbNCwyLCJcXGFscGhhXzAiLDIseyJsYWJlbF9wb3NpdGlvbiI6MzB9XSxbNCwxLCJcXHNpZ21hXzAiLDEseyJsYWJlbF9wb3NpdGlvbiI6NzB9XSxbNSwzLCJcXGFscGhhXzIiXSxbNSwxLCJcXHNpZ21hXzIiLDFdLFs0LDAsIiIsMCx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFs2LDQsImZfMCIsMl0sWzYsNSwiZl8xIl0sWzcsMiwiZ18wIiwyXSxbNywzLCJnXzEiLDAseyJsYWJlbF9wb3NpdGlvbiI6MzB9XSxbNiw3LCJcXGFscGhhXzEiLDEseyJsYWJlbF9wb3NpdGlvbiI6NzB9XSxbNiwzLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbNiwxMSwiIiwxLHsibGV2ZWwiOjEsInN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFs1LDgsIiIsMCx7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=&amp;embed" width="560" height="560" style="border-radius: 8px; border: none;"></iframe> <p>So each of the four faces around the cube are pullbacks and the bottom of the cube is a pushout. We say that the diagram has a <strong>universal colimit</strong> if the top face is a pushout. The idea here being that if you take a map \(\alpha : X \to Y\), where \(Y\) is glued together from some stuff, and you break \(X\) apart on the pieces of \(Y\), then we can glue together those pieces to obtain \(X\).</p> <p>Now if we have a diagram \(Y_0 \xleftarrow{g_0} Y_1 \xrightarrow{g_1} Y_2\) such that for every diagram \(X_0 \xleftarrow{f_0} X_1 \xrightarrow{f_1} X_2\) and maps \(\alpha_0 : X_0 \to Y_0, \alpha_1 : X_1 \to Y_1\) and \(\alpha_2 : X_2 \to Y_2\) that define a natural transformation such that each commutative square is a pullback (which we call a cartesian natural transformation), and we consider the resulting map \(\alpha : X \to Y\) where \(X = X_0 +_{X_1} X_2\) and \(Y = Y_0 +_{Y_1} Y_2\), then we say that it the diagram has an <strong>effective colimit</strong> if \(X_0 \cong Y_0 \times_{Y} X\), \(X_1 \cong Y_1 \times_{Y} X\) and \(X_2 \cong Y_2 \times_{Y} X\). In other words, given some pieces, we glue them together and break them apart again to get the original pieces.</p> <p>A colimit is Van Kampen precisely when it is universal and effective. Here’s a fun exercise: Show that the category \(\mathbf{Set}\) does not have all effective pushouts. In other words, not all of \(\mathbf{Set}\)’s colimits are Van Kampen! When I first heard this I was quite surprised, because I thought \(\mathbf{Set}\) is the best category ever. It turns out, and I won’t be precise here, but the problem here is not really with \(\mathbf{Set}\). Instead, the problem is that we are only looking at \(1\)-categories. It turns out that having all colimits being Van Kampen is precisely what defines an \(\infty\)-topos<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p> <p>However, \(\mathbf{Set}\) does have Van Kampen pushouts when the maps \(g_0, g_1\) in the diagram \(Y_0 \xleftarrow{g_0} Y_1 \xrightarrow{g_1} Y_2\) are monomorphisms. This is the property of \(\mathbf{Set}\) that we generalize to define adhesive categories.</p> <p>Let us show that \(\mathbf{rGrph}\) is adhesive. So first let’s show that \(\mathbf{rGrph}\) has all pullbacks. Suppose that \(f: B \to A\) and \(g: C \to A\) are maps in \(\mathbf{rGrph}\). Consider the pullback </p> <iframe class="quiver-embed" src="https://q.uiver.app/#q=WzAsNCxbMCwwLCJQIl0sWzAsMSwiQiJdLFsxLDEsIkEiXSxbMSwwLCJDIl0sWzAsMSwicCIsMl0sWzAsMywicSJdLFszLDIsImciXSxbMSwyLCJmIiwyXSxbMCwyLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=&amp;embed" width="304" height="304" style="border-radius: 8px; border: none;"></iframe> <p>in \(\mathbf{Grph}\). So \(V(P) = V(B \times_A C) = V(B) \times_{V(A)} V(C)\), and \(p : P \to B\) sends \((b,c) \mapsto b\). There is an edge \((b,c) \sim (b', c')\) iff \(b \sim b'\) and \(c \sim c'\), so clearly \(p\) and \(q\) do not collapse edges. Therefore the pullback \(P\) exists in \(\mathbf{rGrph}\) and agrees with the pullback in \(\mathbf{Grph}\).</p> <p>Now we wish to show that pushouts of monomorphisms exist in \(\mathbf{rGrph}\). Let \(f : A \hookrightarrow B\) and \(g: A \hookrightarrow C\) be monomorphisms, and consider the pushout of \(f\) and \(g\) in \(\mathbf{Grph}\) </p> <iframe class="quiver-embed" src="https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzAsMSwiQiJdLFsxLDAsIkMiXSxbMSwxLCJCK19BQyJdLFswLDEsImYiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDIsImciLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6ImJvdHRvbSJ9fX1dLFsxLDMsIm0iLDJdLFsyLDMsIm4iXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=&amp;embed" width="347" height="304" style="border-radius: 8px; border: none;"></iframe> <p>Let us first show that \(m\) and \(n\) are monomorphisms. Suppose that \(b, b' \in B\) and \(m(b) = m(b')\). This means that \([b] = [b']\), which implies that there exist elements \(a, a_0, \dots, a_n, a'\) and \(c_0, b_0, \dots, b_n, c_n\) such that \(f(a) = b\), \(g(a) = c_0\), \(g(a_0) = c_0\), \(f(a_0) = b_0\), \(\dots\), \(g(a_n) = c_n\), \(g(a') = c_n\), \(f(a') = b'\). But since \(g\) is a monomorphism, \(a = a_0\), so then \(f(a) = b = f(a_0) = b_0\), and so on, which implies that \(b = b'\). Thus \(m\) is a monomorphism. A similar argument holds for \(n\).</p> <p>Now since \(m\) and \(n\) are monomorphisms, they cannot squash vertices. Similarly, by the description of \(B+_A C\), \(m\) and \(n\) do not squash edges. Therefore the pushout in \(\mathbf{rGrph}\) exists and agrees with the pushout in \(\mathbf{Grph}\).</p> <p>Suppose that we have monomorphisms \(H_0 \xleftarrow{g_0} H_1 \xrightarrow{g_1} H_2\) and we let \(H = H_0 +_{H_1} H_2\) be their pushout. Let \(\alpha : G \to H\) be a map of graphs, and let \(G_i = H_i \times_H G\) be respective pullbacks for \(i = 0, 1, 2\). We want to show that \(G \cong G_0 +_{G_1} G_2\). Because \(\mathbf{Set}\) is adhesive, its easy to see that \(V(G) \cong V(G_0 +_{G_1} G_2)\). Showing that the edges agree is not hard to show. So \(\mathbf{rGrph}\) is adhesive.</p> <p>Adhesive categories are a great abstraction for DPO rewriting, which is a framework for graph rewriting. The idea is that one wishes to replace a subgraph with a different graph in a uniform way. You can learn more about adhesive categories from this <a href="https://www.ioc.ee/~pawel/papers/adhesive.pdf" rel="external nofollow noopener" target="_blank">wonderful paper of Lack and Sobocinski</a>.</p> <hr> <div class="footnotes" role="doc-endnotes"> <ol> <li id="fn:1"> <p>Technically an adhesive category is one where you have Van Kampen pushouts when one of the two maps is a monomorphism. For our case however we need both maps to be monos. So maybe it would be better to call these bi-adhesive categories or something, but let’s just stick with the adhesive terminology for now. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p> </li> <li id="fn:2"> <p>See <a href="https://www.math.uwo.ca/faculty/kapulkin/seminars/hottestfiles/Anel-2019-05-2-HoTTEST.pdf" rel="external nofollow noopener" target="_blank">here</a> for more. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p> </li> </ol> </div> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Emilio Minichiello. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-research",
+          title: "research",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/research/";
+          },
+        },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-talks",
+          title: "talks",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/talks/";
+          },
+        },{id: "nav-compassion",
+          title: "compassion",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/compassion/";
+          },
+        },{id: "nav-conferences",
+          title: "conferences",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/conferences/";
+          },
+        },{id: "nav-teaching",
+          title: "teaching",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/teaching/";
+          },
+        },{id: "post-some-updates",
+        
+          title: "Some Updates",
+        
+        description: "updates on life",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/lifeupdate/";
+          
+        },
+      },{id: "post-papers-on-graph-homotopy-theory",
+        
+          title: "Papers on Graph Homotopy Theory",
+        
+        description: "A repository of papers",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/graphhomotopytheory/";
+          
+        },
+      },{id: "post-duplation-mediation-multiplication",
+        
+          title: "Duplation-Mediation Multiplication",
+        
+        description: "Let&#39;s discuss an alternative algorithm for multiplication.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/duplation-multiplication/";
+          
+        },
+      },{id: "post-pushouts-along-monomorphisms",
+        
+          title: "Pushouts along monomorphisms.",
+        
+        description: "A quick post to discuss adhesive categories.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/adhesivecategories/";
+          
+        },
+      },{id: "post-the-category-of-simple-graphs-pt-2",
+        
+          title: "The Category of Simple Graphs, Pt. 2",
+        
+        description: "We play around with some simple graphs to get a feel for their category.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/catsographs2/";
+          
+        },
+      },{id: "post-the-category-of-simple-graphs",
+        
+          title: "The Category of Simple Graphs",
+        
+        description: "We play around with some simple graphs to get a feel for their category.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/catsofgraphs/";
+          
+        },
+      },{id: "post-google-gemini-updates-flash-1-5-gemma-2-and-project-astra",
+        
+          title: 'Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/", "_blank");
+          
+        },
+      },{id: "post-diffeological-spaces-part-3",
+        
+          title: "Diffeological Spaces, Part 3",
+        
+        description: "The definition of diffeological spaces",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/diffeological_spaces_3/";
+          
+        },
+      },{id: "post-diffeological-spaces-part-2",
+        
+          title: "Diffeological Spaces, Part 2",
+        
+        description: "Some history of diffeological spaces.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/diffeological_spaces_2/";
+          
+        },
+      },{id: "post-diffeological-spaces-part-1",
+        
+          title: "Diffeological Spaces, Part 1",
+        
+        description: "The inaugural post! What is a diffeological space?",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/diffeological_spaces_1-copy/";
+          
+        },
+      },{id: "post-displaying-external-posts-on-your-al-folio-blog",
+        
+          title: 'Displaying External Posts on Your al-folio Blog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@al-folio/displaying-external-posts-on-your-al-folio-blog-b60a1d241a0a?source=rss-17feae71c3c4------2", "_blank");
+          
+        },
+      },{id: "books-the-godfather",
+          title: 'The Godfather',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_godfather/";
+            },},{id: "news-categorical-models-for-path-spaces-https-www-sciencedirect-com-science-article-abs-pii-s0001870823000415-is-accepted-into-advances-in-mathematics-https-www-sciencedirect-com-journal-advances-in-mathematics",
+          title: '[Categorical Models for Path Spaces](https://www.sciencedirect.com/science/article/abs/pii/S0001870823000415) is accepted into [Advances in Mathematics](https://www.sciencedirect.com/journal/advances-in-mathematics)!',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-a-mathematical-model-of-package-management-systems-from-general-event-structures-to-antimatroids-https-arxiv-org-abs-2302-05417-jww-gershom-bazerman-https-gbaz-github-io-and-raymond-puzio-https-dblp-org-pid-44-5695-html",
+          title: 'Posted new preprint to the arxiv – [A Mathematical Model of Package Management...',
+          description: "",
+          section: "News",},{id: "news-updated-preprint-diffeological-principal-bundles-and-principal-infinity-bundles-https-arxiv-org-abs-2202-11023-stylistic-rewrite-and-added-some-new-results-and-sections",
+          title: 'Updated preprint – [Diffeological Principal Bundles and Principal Infinity Bundles](https://arxiv.org/abs/2202.11023), stylistic rewrite and...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-about-diffeological-spaces-and-higher-stacks-at-the-texas-tech-topology-and-geometry-seminar-https-dmitripavlov-org-geometry",
+          title: 'Gave a talk about diffeological spaces and higher stacks at the [Texas Tech...',
+          description: "",
+          section: "News",},{id: "news-visited-coauthor-manuel-rivera-https-riveramanuel-com-at-purdue-university-talked-in-his-class-on-category-theory-and-simplicial-methods-about-convenient-categories-of-topological-spaces-gave-a-talk-on-diffeological-spaces-at-topolodays-the-purdue-university-topology-student-seminar",
+          title: 'Visited coauthor [Manuel Rivera](https://riveramanuel.com/) at Purdue University. Talked in his class on Category...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-queensborough-community-college-math-seminar-about-a-mathematical-model-of-package-management-systems-https-arxiv-org-abs-2302-05417",
+          title: 'Gave a talk at Queensborough Community College Math Seminar about a [Mathematical Model...',
+          description: "",
+          section: "News",},{id: "news-gave-an-talk-at-the-topology-geometry-and-physics-seminar-https-www-zeinalian-com-workshop-about-diffeological-spaces-and-the-obstruction-to-the-cech-derham-isomorphism-in-diffeology",
+          title: 'Gave an talk at the [Topology, Geometry and Physics Seminar](https://www.zeinalian.com/workshop) about diffeological spaces...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-nyc-category-theory-seminar-http-www-sci-brooklyn-cuny-edu-noson-seminar-index-html-can-find-the-video-recording-here-https-www-youtube-com-watch-v-tbygkbd2dhc-amp-t-43s-amp-ab-channel-thenewyorkcitycategorytheoryseminar",
+          title: 'Gave a talk at the [NYC Category Theory Seminar](http://www.sci.brooklyn.cuny.edu/~noson/Seminar/index.html). Can find the video...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-the-diffeological-cech-de-rham-obstruction-https-arxiv-org-abs-2401-09400",
+          title: 'Posted new preprint to the arxiv – [The Diffeological Cech-de Rham Obstruction](https://arxiv.org/abs/2401.09400)',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-presenting-profunctors-https-arxiv-org-abs-2404-01406-jww-gabriel-goren-roig-https-gabrielgorenroig-github-io-and-joshua-meyers",
+          title: 'Posted new preprint to the arxiv – [Presenting Profunctors](https://arxiv.org/abs/2404.01406), jww [Gabriel Goren Roig](https://gabrielgorenroig.github.io/)...',
+          description: "",
+          section: "News",},{id: "news-diffeological-principal-bundles-and-principal-infinity-bundles-https-link-springer-com-article-10-1007-s40062-024-00347-4-is-accepted-into-journal-of-homotopy-and-related-structures-https-link-springer-com-journal-40062",
+          title: '[Diffeological Principal Bundles and Principal Infinity Bundles](https://link.springer.com/article/10.1007/s40062-024-00347-4) is accepted into [Journal of Homotopy...',
+          description: "",
+          section: "News",},{id: "news-defended-my-phd-thesis-higher-diffeology-theory-consisting-of-the-papers-diffeological-principal-bundles-https-arxiv-org-abs-2202-11023-and-the-diffeological-čech-de-rham-obstruction-https-arxiv-org-abs-2401-09400",
+          title: 'Defended my PhD thesis **Higher Diffeology Theory**, consisting of the papers [Diffeological Principal...',
+          description: "",
+          section: "News",},{id: "news-the-paper-presenting-profunctors-https-arxiv-org-abs-2404-01406-has-been-accepted-to-act-2024-https-oxford24-github-io-act-cfp-html",
+          title: 'The paper [Presenting Profunctors](https://arxiv.org/abs/2404.01406) has been accepted to [ACT 2024](https://oxford24.github.io/act_cfp.html)!',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-nyc-category-theory-seminar-http-www-sci-brooklyn-cuny-edu-noson-seminar-index-html-on-presenting-profunctors-can-find-the-video-recording-here-https-www-youtube-com-watch-v-0bquvu-kwra-amp-t-3203s",
+          title: 'Gave a talk at the [NYC Category Theory Seminar](http://www.sci.brooklyn.cuny.edu/~noson/Seminar/index.html) on Presenting Profunctors. Can...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-act-2024-https-oxford24-github-io-act-cfp-html-on-proqueries-and-praqueries-see-my-talks-link-pages-talks-md-page-for-slides-and-video",
+          title: 'Gave a talk at [ACT 2024](https://oxford24.github.io/act_cfp.html) on Proqueries and Praqueries. See my [talks]({%...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-quot-introduction-to-diffeology-quot-at-the-zulip-online-category-theory-seminar-https-categorytheory-zulipchat-com-narrow-stream-437647-event-3a-online-ct-seminar-see-my-talks-link-pages-talks-md-page-for-slides-and-video",
+          title: 'Gave a talk &amp;quot;Introduction to Diffeology&amp;quot; at the [Zulip Online Category Theory Seminar](https://categorytheory.zulipchat.com/#narrow/stream/437647-event.3A-Online-CT-seminar)....',
+          description: "",
+          section: "News",},{id: "news-i-39-ve-accepted-a-tenure-track-assistant-professor-position-in-the-mathematics-department-https-www-citytech-cuny-edu-mathematics-at-cuny-citytech-https-www-citytech-cuny-edu",
+          title: 'I&amp;#39;ve accepted a tenure-track Assistant Professor position in the [Mathematics department](https://www.citytech.cuny.edu/mathematics/#) at [CUNY...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-for-the-cuny-citytech-math-department-on-categorical-database-theory",
+          title: 'Gave a talk for the CUNY CityTech math department on categorical database theory....',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-on-the-diffeological-cech-de-rham-obstruction-at-the-monthly-global-diffeology-seminar-see-the-talks-page-for-more-information-and-slides",
+          title: 'Gave a talk on The Diffeological Cech-de Rham Obstruction at the Monthly Global...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-new-york-city-category-theory-seminar-titled-quot-decision-problems-on-graphs-with-sheaves-quot-see-the-talks-section-above-for-a-video-recording",
+          title: 'Gave a talk at the New York City Category Theory Seminar titled &amp;quot;Decision...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-coverages-and-grothendieck-toposes-https-arxiv-org-abs-2503-20664-it-is-a-set-of-notes-about-grothendieck-topos-theory-using-coverages",
+          title: 'Posted new preprint to the arXiv - [Coverages and Grothendieck Toposes](https://arxiv.org/abs/2503.20664). It is...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-structured-decompositions-structural-and-algorithmic-compositionality-https-arxiv-org-abs-2207-06091-joint-work-with-ben-bumpus-https-bmbumpus-com-about-me-zoltan-kocsis-https-existence-property-and-jade-master-https-sites-google-com-view-jadeedenstarmaster-home",
+          title: 'Posted new preprint to the arxiv – [Structured Decompositions: Structural and Algorithmic Compositionality...',
+          description: "",
+          section: "News",},{id: "news-i-39-ve-been-awarded-a-1-year-psc-cuny-grant-https-www-rfcuny-org-rfwebsite-quot-hypersheaves-in-differential-geometry-quot",
+          title: 'I&amp;#39;ve been awarded a 1-year [PSC CUNY Grant](https://www.rfcuny.org/rfwebsite/) &amp;quot;Hypersheaves in Differential Geometry.&amp;quot;',
+          description: "",
+          section: "News",},{id: "news-i-gave-several-talks-this-semester-including-three-lectures-on-my-notes-quot-coverages-and-grothendieck-toposes-quot-check-out-the-talks-page-above",
+          title: 'I gave several talks this semester, including three lectures on my notes &amp;quot;Coverages...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-to-the-arxiv-thomason-type-model-structures-on-simplicial-complexes-and-graphs-https-arxiv-org-abs-2508-08195",
+          title: 'Posted new preprint to the arxiv – [Thomason-Type Model Structures on Simplicial Complexes...',
+          description: "",
+          section: "News",},{id: "news-gave-a-talk-at-the-nyc-category-theory-seminar-http-www-sci-brooklyn-cuny-edu-noson-seminar-index-html-on-my-paper-thomason-type-model-structures-on-simplicial-complexes-and-graphs-https-arxiv-org-abs-2508-08195-see-the-talks-page-above",
+          title: 'Gave a talk at the [NYC Category Theory Seminar](http://www.sci.brooklyn.cuny.edu/~noson/Seminar/index.html) on my paper [Thomason-Type...',
+          description: "",
+          section: "News",},{id: "news-some-nice-news-my-paper-thomason-type-model-structures-on-simplicial-complexes-and-graphs-https-link-springer-com-article-10-1007-s10485-026-09850-6-has-been-published-by-applied-categorical-structures-at-the-same-time-my-new-paper-hypercovers-in-differential-geometry-https-arxiv-org-abs-2602-11971-has-hit-the-arxiv",
+          title: 'Some nice news, my paper [Thomason-Type Model Structures on Simplicial Complexes and Graphs](https://link.springer.com/article/10.1007/s10485-026-09850-6)...',
+          description: "",
+          section: "News",},{id: "news-gave-talks-at-iona-college-and-the-ny-combinatorics-day-2026-see-the-talks-section-for-the-slides",
+          title: 'Gave talks at Iona College and the NY Combinatorics Day 2026. See the...',
+          description: "",
+          section: "News",},{id: "news-posted-new-preprint-a-parameterized-algorithm-for-testing-whether-the-limit-of-a-diagram-is-empty-https-arxiv-org-abs-2605-24240-to-the-arxiv",
+          title: 'Posted new preprint [A Parameterized Algorithm for Testing whether the Limit of a...',
+          description: "",
+          section: "News",},{id: "news-i-gave-three-talks-this-semester-in-switzerland-albany-and-in-nyc-check-out-the-talks-page",
+          title: 'I gave three talks this semester in Switzerland, Albany and in NYC. Check...',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{id: "projects-project-5",
+          title: 'project 5',
+          description: "a project with a background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/5_project/";
+            },},{id: "projects-project-6",
+          title: 'project 6',
+          description: "a project with no image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/6_project/";
+            },},{id: "projects-project-7",
+          title: 'project 7',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/7_project/";
+            },},{id: "projects-project-8",
+          title: 'project 8',
+          description: "an other project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/8_project/";
+            },},{id: "projects-project-9",
+          title: 'project 9',
+          description: "another project with an image 🎉",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/9_project/";
+            },},{id: "teachings-data-science-fundamentals",
+          title: 'Data Science Fundamentals',
+          description: "This course covers the foundational aspects of data science, including data collection, cleaning, analysis, and visualization. Students will learn practical skills for working with real-world datasets.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-fundamentals/";
+            },},{id: "teachings-introduction-to-machine-learning",
+          title: 'Introduction to Machine Learning',
+          description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/introduction-to-machine-learning/";
+            },},{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/example_pdf.pdf", "_blank");
+        },
+      },{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%79%6F%75@%65%78%61%6D%70%6C%65.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-inspire',
+        title: 'Inspire HEP',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://inspirehep.net/authors/1010907", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=qc6CJjYAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-custom_social',
+        title: 'Custom_social',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.alberteinstein.com/", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
