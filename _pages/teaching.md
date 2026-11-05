@@ -1,15 +1,32 @@
 ---
 layout: page
-permalink: /teaching/
 title: teaching
-description: Course materials, schedules, and resources for classes taught.
+permalink: /teaching/
+subtitle:
 nav: true
 nav_order: 6
-calendar: true
 ---
 
-This page displays a collection of courses with detailed schedules, materials, and resources. You can organize your courses by years, terms, or topics.
+# Spring 2027
+* MAT4800 - Introduction to Category Theory
 
-{% include calendar.liquid calendar_id='test@gmail.com' timezone='Asia/Shanghai' %}
+## Fall 2026
+* MAT1375 - Precalculus
+* MAT2440 - Discrete Structures and Algorithms I
 
-{% include courses.liquid %}
+## Spring 2026
+* MAT4800 - Introduction to Category Theory
+
+## Fall 2025
+
+* MAT1375 - Precalculus
+* MAT2540 - Discrete Structures and Algorithms II
+
+## Spring 2025
+
+* MAT1375 - Precalculus
+
+## Fall 2024
+
+* MAT1375 - Precalculus
+* MAT2440 - Discrete Structures and Algorithms I
